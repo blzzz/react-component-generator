@@ -76,7 +76,8 @@ async function writeComponentFiles(directory: string, componentNameStr: string) 
   const createStoriesFile = getSetting<boolean>('createStoriesFile', false);
   const useIndexFile = getSetting<boolean>('useIndexFile', true);
   const importReact = getSetting<boolean>('importReact', false);
-  const useCssModules = getSetting<boolean>('useCssModules', true);
+  const useCssModules = getSetting<boolean>('useCssModules', false);
+  const stylesFileHeadContent = getSetting<string>('stylesFileHeadContent', "");
   const usePropTypes = getSetting<boolean>('usePropTypes', true);
 
   const componentName = toPascalCase(componentNameStr);  
@@ -99,7 +100,7 @@ async function writeComponentFiles(directory: string, componentNameStr: string) 
   // Write style file
   writeFile(
     `${directory}/${componentName}/${componentName}.${stylesLanguage}`,
-    stylesTemplate(componentName, useCssModules)
+    stylesTemplate(componentName, useCssModules, stylesFileHeadContent)
   );
 
   // Write test file
